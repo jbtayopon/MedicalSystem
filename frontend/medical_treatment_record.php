@@ -58,12 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
         }
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<link rel="icon" href="../img/NEUST.png" type="image/png">
+    <link rel="icon" href="../img/NEUST.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Treatment Record Input</title>
@@ -74,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
     <div id="wrapper">
         <?php include 'sidebar.php'; ?>
@@ -84,7 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
                 <div class="container mt-5">
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <h3 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-notes-medical"></i>Medical Treatment Record</h3>
+                            <h3 class="m-0 font-weight-bold text-primary"><i
+                                    class="fas fa-fw fa-notes-medical"></i>Medical Treatment Record</h3>
                         </div>
                         <div class="card-body">
                             <h4>User Information</h4>
@@ -94,10 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
 
                             <form action="../frontend/medical_treatment_record.php" method="POST">
                                 <div class="form-group">
-                                    <label for="id_number">ID Number</label>
-                                    <input type="text" name="id_number" class="form-control" value="<?php echo isset($_POST['id_number']) ? htmlspecialchars($_POST['id_number']) : (isset($_SESSION['id_number']) ? htmlspecialchars($_SESSION['id_number']) : ''); ?>" required>
+                                    <label for="id_number">Student/Employee (Number/Name)</label>
+                                    <input type="text" list="studentList" id="id_number" name="id_number"  class="form-control" placeholder="Type Number or Name" required>
+                                    <datalist id="studentList"></datalist>
+
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block" id="filter-button">Filter</button>
+
+
+                                <button type="submit" class="btn btn-primary btn-block"
+                                    id="filter-button">Filter</button>
                             </form>
 
                             <?php if ($user_data): ?>
@@ -114,13 +124,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
                                         <tbody>
                                             <tr>
                                                 <td><?php echo htmlspecialchars($user_data['id_number']); ?></td>
-                                                <td><?php echo htmlspecialchars($user_data['first_name'] . ' ' . $user_data['middle_name'] . ' ' . $user_data['last_name']); ?></td>
+                                                <td><?php echo htmlspecialchars($user_data['first_name'] . ' ' . $user_data['middle_name'] . ' ' . $user_data['last_name']); ?>
+                                                </td>
                                                 <td><?php echo htmlspecialchars($user_data['campus']); ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                                 <?php if ($medical_records): ?>
                                     <h5 class="mt-4">Medical Treatment Records</h5>
                                     <div class="table-responsive">
@@ -199,45 +210,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
 
 
                                 <!-- Add Medical Treatment Record Modal -->
-                                <div class="modal fade" id="addTreatmentModal" tabindex="-1" aria-labelledby="addTreatmentModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="addTreatmentModal" tabindex="-1"
+                                    aria-labelledby="addTreatmentModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addTreatmentModalLabel">Add Medical Treatment Record</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="addTreatmentModalLabel">Add Medical Treatment
+                                                    Record</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <form action="../backend/insert_medical_record.php" method="POST">
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="student_id" value="<?php echo htmlspecialchars($user_data['id_number']); ?>">
-                                                    <input type="hidden" name="first_name" value="<?php echo htmlspecialchars($user_data['first_name']); ?>">
-                                                    <input type="hidden" name="middle_name" value="<?php echo htmlspecialchars($user_data['middle_name']); ?>">
-                                                    <input type="hidden" name="last_name" value="<?php echo htmlspecialchars($user_data['last_name']); ?>">
+                                                    <input type="hidden" name="student_id"
+                                                        value="<?php echo htmlspecialchars($user_data['id_number']); ?>">
+                                                    <input type="hidden" name="first_name"
+                                                        value="<?php echo htmlspecialchars($user_data['first_name']); ?>">
+                                                    <input type="hidden" name="middle_name"
+                                                        value="<?php echo htmlspecialchars($user_data['middle_name']); ?>">
+                                                    <input type="hidden" name="last_name"
+                                                        value="<?php echo htmlspecialchars($user_data['last_name']); ?>">
 
                                                     <div class="form-group">
                                                         <label for="date">Date</label>
-                                                        <input type="date" name="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
+                                                        <input type="date" name="date" class="form-control"
+                                                            value="<?php echo date('Y-m-d'); ?>" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="chief_complaint">Chief Complaint</label>
-                                                        <select name="chief_complaint" id="chief_complaint" class="form-control" required onchange="toggleOtherField()">
+                                                        <select name="chief_complaint" id="chief_complaint"
+                                                            class="form-control" required onchange="toggleOtherField()">
                                                             <option value="">Select a complaint</option>
                                                             <?php foreach ($issues as $issue): ?>
-                                                                <option value="<?php echo htmlspecialchars($issue); ?>"><?php echo htmlspecialchars($issue); ?></option>
+                                                                <option value="<?php echo htmlspecialchars($issue); ?>">
+                                                                    <?php echo htmlspecialchars($issue); ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                             <option value="Other">Other</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group" id="other_complaint_field" style="display: none;">
+                                                    <div class="form-group" id="other_complaint_field"
+                                                        style="display: none;">
                                                         <label for="other_complaint">Specify Other Complaint</label>
-                                                        <input type="text" name="other_complaint" id="other_complaint" class="form-control">
+                                                        <input type="text" name="other_complaint" id="other_complaint"
+                                                            class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="treatment">Treatment</label>
-                                                        <textarea name="treatment" class="form-control" rows="3" required></textarea>
+                                                        <textarea name="treatment" class="form-control" rows="3"
+                                                            required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary">Submit Record</button>
                                                 </div>
                                             </form>
@@ -246,12 +272,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
                                 </div>
 
                                 <!-- Trigger Button for Modal -->
-                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#addTreatmentModal">
+                                <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal"
+                                    data-bs-target="#addTreatmentModal">
                                     Add Medical Treatment Record
                                 </button>
 
                                 <form action="medical_certificate.php" method="GET">
-                                    <input type="hidden" name="id_number" value="<?php echo htmlspecialchars($user_data['id_number']); ?>">
+                                    <input type="hidden" name="id_number"
+                                        value="<?php echo htmlspecialchars($user_data['id_number']); ?>">
                                     <button type="submit" class="btn btn-success btn-block">
                                         Generate Medical Certificate <i class="fa fa-file-pdf"></i>
                                     </button>
@@ -266,8 +294,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
+
     <script>
-        $(document).ready(function() {
+        document.getElementById('id_number').addEventListener('input', function () {
+            let val = this.value;
+            if (val.length > 0) {
+                fetch('searchid.php?q=' + encodeURIComponent(val))
+                    .then(res => res.json())
+                    .then(data => {
+                        let datalist = document.getElementById('studentList');
+                        datalist.innerHTML = '';
+                        data.forEach(item => {
+                            let option = document.createElement('option');
+                            option.value = item.id_number;
+                            option.textContent = item.full_name;
+                            datalist.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
             $('#dataTable').DataTable();
         });
     </script>
@@ -318,6 +368,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_number'])) {
                 }
             });
         </script>
+
+
     <?php endif; ?>
 </body>
+
 </html>

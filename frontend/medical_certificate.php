@@ -71,7 +71,8 @@ if (!empty($id_number)) {
                 <div class="form-group">
                     <label for="id_number">Student ID Number:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="id_number" name="id_number" value="<?php echo htmlspecialchars($id_number); ?>" placeholder="Enter ID Number">
+                        <input type="text" list="studentList" id="id_number" name="id_number"  class="form-control" placeholder="Type Number or Name" value="<?php echo htmlspecialchars($id_number); ?>" required>
+                        <datalist id="studentList"></datalist>
                         <div class="input-group-append">
                             <button type="button" class="btn btn-primary" onclick="fetchStudentDetails()">Fetch</button>
                         </div>
@@ -138,6 +139,26 @@ if (!empty($id_number)) {
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../js/sb-admin-2.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
+  <script>
+        document.getElementById('id_number').addEventListener('input', function () {
+            let val = this.value;
+            if (val.length > 0) {
+                fetch('searchid.php?q=' + encodeURIComponent(val))
+                    .then(res => res.json())
+                    .then(data => {
+                        let datalist = document.getElementById('studentList');
+                        datalist.innerHTML = '';
+                        data.forEach(item => {
+                            let option = document.createElement('option');
+                            option.value = item.id_number;
+                            option.textContent = item.full_name;
+                            datalist.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
+
 
 <script>
     function fetchStudentDetails() {
