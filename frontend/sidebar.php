@@ -5,11 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-<link href="../css/sb-admin-2.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <link href="../css/sb-admin-2.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
 
-<BR><img src="../img/neust.png" alt="Logo" class="neustlogo">
+    <BR><img src="../img/neust.png" alt="Logo" class="neustlogo">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./m_dashboard.php">
         <div class="sidebar-brand-text mx-3">NEUST STUDENT MEDICAL RECORD</div>
     </a>
@@ -21,9 +21,9 @@ if (session_status() === PHP_SESSION_NONE) {
             <span>Dashboard</span>
         </a>
     </li>
-            <div class="sidebar-heading">
-                Interface
-            </div>
+    <div class="sidebar-heading">
+        Interface
+    </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedical"
             aria-expanded="true" aria-controls="collapseMedical">
@@ -41,8 +41,8 @@ if (session_status() === PHP_SESSION_NONE) {
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDental"
-            aria-expanded="true" aria-controls="collapseDental">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDental" aria-expanded="true"
+            aria-controls="collapseDental">
             <i class="fas fa-fw fa-tooth"></i>
             <span>Dental</span>
         </a>
@@ -57,30 +57,69 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <li class="nav-item">
         <a class="nav-link" href="../frontend/Medical_Certificate">
-        <i class="fas fa-fw fa-certificate"></i>
+            <i class="fas fa-fw fa-certificate"></i>
             <span>Medical Certificate</span>
         </a>
     </li>
-    
+
 
     <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'super_admin'): ?>
-    <li class="nav-item">
-        <a class="nav-link" href="add_account">
-            <i class="fas fa-fw fa-user-plus"></i>
-            <span>Add Account</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="reports">
-            <i class="fas fa-fw fa-user-plus"></i>
-            <span>Reports</span>
-        </a>
-    </li>
-   
-    <?php endif; ?>
-                <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+         <div class="sidebar-heading">
+        ADDONS
+    </div>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdditional"
+                aria-expanded="true" aria-controls="collapseMedical">
+                <i class="fas fa-fw fa-plus"></i>
+                <span>Additional</span>
+            </a>
+            <div id="collapseAdditional" class="collapse" aria-labelledby="headingAdditional"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="add_account">
+                        <i class="fas fa-fw fa-user-plus"></i>
+                        <span>Add Account</span>
+                    </a>
+
+                    <a class="collapse-item" href="add_department">
+                        <i class="fas fa-fw fa-building"></i>
+                        <span>Add Department</span>
+                    </a>
+
+                    <a class="collapse-item" href="add_campus">
+                        <i class="fas fa-fw fa-university"></i>
+                        <span>Add Campus</span>
+                    </a>
+
+                    <a class="collapse-item" href="add_case">
+                        <i class="fas fa-fw fa-thermometer-three-quarters"></i>
+                        <span>Add Cases</span>
+                    </a>
+
+                    <a class="collapse-item" href="add_medicine">
+                        <i class="fas fa-fw fa-plus-square"></i>
+                        <span>Add Medicine</span>
+                    </a>
+                </div>
             </div>
+        </li>
+
+
+
+
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="reports">
+                <i class="fas fa-fw fa-user-plus"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+    <?php endif; ?>
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
 
 
@@ -104,13 +143,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <script>
     function confirmLogout(event) {
-        event.preventDefault(); 
-        
+        event.preventDefault();
+
         Swal.fire({
             title: 'Are you sure?',
             text: "Do you really want to log out?",
-            imageUrl: '../img/Logout.png', 
-            imageWidth: 100, 
+            imageUrl: '../img/Logout.png',
+            imageWidth: 100,
             imageHeight: 100,
             showCancelButton: true,
             cancelButtonText: 'cancel',
@@ -122,5 +161,3 @@ if (session_status() === PHP_SESSION_NONE) {
         });
     }
 </script>
-
-
